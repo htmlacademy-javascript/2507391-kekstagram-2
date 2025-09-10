@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Полина Смирнова](https://up.htmlacademy.ru/javascript-individual/2/user/2507391).
-* Наставник: [Ярослав Шевцов] (https://htmlacademy.ru/profile/redx).
+* Наставник: [Ярослав Шевцов](https://htmlacademy.ru/profile/redx).
 
 ---
 
