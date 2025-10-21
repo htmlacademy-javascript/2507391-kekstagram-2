@@ -1,11 +1,10 @@
 
-// Функция для проверки длины строки
-function checkStringLength(str, maxLength) {
+// Экспортируем функции для проверки строк
+export function checkStringLength(str, maxLength) {
   return str.length <= maxLength;
 }
 
-// Функция для проверки палиндрома
-function isPalindrome(str) {
+export function isPalindrome(str) {
   const normaLizedStr = str.replaceAll(' ', '').toLowerCase();
   let reversedStr = '';
 
@@ -16,7 +15,7 @@ function isPalindrome(str) {
   return normaLizedStr === reversedStr;
 }
 
-// Тестирование функций
+// Тестирование функций (можно оставить или убрать)
 console.log(checkStringLength('проверяемая строка', 20)); // true
 console.log(checkStringLength('проверяемая строка', 18)); // true
 console.log(checkStringLength('проверяемая строка', 10)); // false
