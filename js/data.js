@@ -1,3 +1,5 @@
+import { getRandomInteger, getRandomArrayElement, createIdGenerator } from './util.js';
+
 // Экспортируем константы
 export const SIMILAR_NUMBER_RANDOM = 25;
 
@@ -22,3 +24,38 @@ export const MESSAGES = [
 ];
 
 export const NAMES = ['Артём', 'Мария', 'Дмитрий', 'Анна', 'Сергей', 'Елена', 'Алексей', 'Ольга', 'Иван', 'Наталья'];
+
+// Генератор ID для комментариев
+const generateCommentId = createIdGenerator();
+
+// Функция для создания комментария
+const createComment = () => {
+  const messageCount = getRandomInteger(1, 2);
+  let message = '';
+
+  const usedMessages = new Set();
+  while (usedMessages.size < messageCount) {
+    usedMessages.add(getRandomArrayElement(MESSAGES));
+  }
+
+  message = Array.from(usedMessages).join(' ');
+
+  return {
+    id: generateCommentId(),
+    avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
+    message: message,
+    name: getRandomArrayElement(NAMES)
+  };
+};
+
+// Функция для создания фотографии
+const createPhoto = (index) => ({
+  id: index + 1,
+  url: `photos/${index + 1}.jpg`,
+  description: DESCRIPTIONS[index] || `Фотография ${index + 1}`,
+  likes: getRandomInteger(15, 200),
+  comments: Array.from({length: getRandomInteger(0, 30)}, createComment)
+});
+
+// Генерация данных и экспорт
+export const similarPhotos = Array.from({length: SIMILAR_NUMBER_RANDOM}, (_, index) => createPhoto(index));
