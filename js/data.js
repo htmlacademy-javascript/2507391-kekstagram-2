@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-=======
 import { getRandomInteger, getRandomArrayElement, createIdGenerator } from './util.js';
 
->>>>>>> module5-task1
 // Экспортируем константы
 export const SIMILAR_NUMBER_RANDOM = 25;
 
@@ -26,9 +23,6 @@ export const MESSAGES = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
-<<<<<<< HEAD
-export const NAMES = ['Артём', 'Мария', 'Дмитрий', 'Анна', 'Сергей', 'Елена', 'Алексей', 'Ольга', 'Иван', 'Наталья'];
-=======
 export const NAMES = ['Артём', 'Мария', 'Дмитрий', 'Анна', 'Сергей', 'Елена', 'Алексей', 'Ольга', 'Иван', 'Наталья'];
 
 // Генератор ID для комментариев
@@ -65,4 +59,3 @@ const createPhoto = (index) => ({
 
 // Генерация данных и экспорт
 export const similarPhotos = Array.from({length: SIMILAR_NUMBER_RANDOM}, (_, index) => createPhoto(index));
->>>>>>> module5-task1
