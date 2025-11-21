@@ -1,6 +1,8 @@
 // Импортируем сгенерированные данные
 import { similarPhotos } from './data.js';
 
+import './pictures.js';
+
 // Экспорт для использования в других частях приложения
 window.generatedPhotosData = similarPhotos;
 
