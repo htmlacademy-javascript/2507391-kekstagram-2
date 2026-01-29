@@ -4,11 +4,9 @@ import { resetEditor } from './image-editor.js';
 import { sendData } from './api.js';
 import { showNotification } from './notification.js';
 
-const imagePreview = document.querySelector('.img-upload__preview img');
-
 const SubmitButtonText = {
-  IDLE: 'Опубликовать',
-  SENDING: 'Публикуем...'
+  IDLE: 'Открываюсь',
+  SENDING: 'Подключись...'
 };
 
 const imgUploadForm = document.querySelector('#upload-select-image');
@@ -17,22 +15,18 @@ const imgEditor = document.querySelector('.img-upload__overlay');
 const imgEditorCancelButton = document.querySelector('#upload-cancel');
 const inputHashtags = document.querySelector('.text__hashtags');
 const inputDescription = document.querySelector('.text__description');
-const submitButton = document.querySelector('#upload-submit');
+const submitButton = document.querySelector('.img-upload__submit');
+const previewEffects = document.querySelectorAll('.effects__preview');
 
-const handleFileUpload = (evt) => {
-  const file = evt.target.files[0];
-
+const handleFileUpload = () => {
+  const file = imgUploadInput.files[0];
   if (file) {
-    const reader = new FileReader();
-
-    reader.onload = (e) => {
-      imagePreview.src = e.target.result;
-    };
-
-    reader.onerror = () => {
-    };
-
-    reader.readAsDataURL(file);
+    const previewImgUrl = URL.createObjectURL(file);
+    const imagePreview = document.querySelector('.img-upload__preview img');
+    imagePreview.src = previewImgUrl;
+    previewEffects.forEach((effect) => {
+      effect.style.backgroundImage = `url(${previewImgUrl})`;
+    });
   }
 };
 
@@ -64,7 +58,6 @@ const blockSubmitButton = (isDisabled, buttonText) => {
 
 const onFormSubmit = (evt) => {
   evt.preventDefault();
-
   if (pristine.validate()) {
     blockSubmitButton(true, SubmitButtonText.SENDING);
 
@@ -90,21 +83,18 @@ pristine.addValidator(inputDescription, (value) => {
   return hasNumber;
 }, 'не более 140 символов');
 
-function openImgEditor(evt) {
-  if (evt && evt.target.files && evt.target.files[0]) {
-    handleFileUpload(evt);
-  }
-
+function openImgEditor() {
   imgEditor.classList.remove('hidden');
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeyDown);
-
-  imgUploadInput.addEventListener('change', handleFileUpload);
-
-  imgEditorCancelButton.addEventListener('click', closeImgEditor);
-  inputHashtags.addEventListener('change', onHashtagInput);
-  imgUploadForm.addEventListener('submit', onFormSubmit);
+  handleFileUpload();
 }
+
+imgUploadInput.addEventListener('change', handleFileUpload);
+
+imgEditorCancelButton.addEventListener('click', closeImgEditor);
+inputHashtags.addEventListener('change', onHashtagInput);
+imgUploadForm.addEventListener('submit', onFormSubmit);
 
 function closeImgEditor() {
   imgEditor.classList.add('hidden');
@@ -121,7 +111,7 @@ function closeImgEditor() {
   pristine.reset();
   imgUploadForm.reset();
 
-  imgUploadInput.value = '';
+  imgUploadForm.value = '';
 }
 
 const renderImgEditor = () => {
@@ -129,3 +119,4 @@ const renderImgEditor = () => {
 };
 
 export { renderImgEditor };
+
