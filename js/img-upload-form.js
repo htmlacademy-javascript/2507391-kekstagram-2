@@ -5,8 +5,8 @@ import { sendData } from './api.js';
 import { showNotification } from './notification.js';
 
 const SubmitButtonText = {
-  IDLE: 'Открываюсь',
-  SENDING: 'Подключись...'
+  IDLE: 'Опубликовать',
+  SENDING: 'Публикуем...'
 };
 
 const imgUploadForm = document.querySelector('#upload-select-image');
@@ -87,31 +87,24 @@ function openImgEditor() {
   imgEditor.classList.remove('hidden');
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeyDown);
+  imgEditorCancelButton.addEventListener('click', closeImgEditor);
+  inputHashtags.addEventListener('input', onHashtagInput);
+  imgUploadForm.addEventListener('submit', onFormSubmit);
+
   handleFileUpload();
 }
 
-imgUploadInput.addEventListener('change', handleFileUpload);
-
-imgEditorCancelButton.addEventListener('click', closeImgEditor);
-inputHashtags.addEventListener('change', onHashtagInput);
-imgUploadForm.addEventListener('submit', onFormSubmit);
-
 function closeImgEditor() {
   imgEditor.classList.add('hidden');
-  document.removeEventListener('keydown', onDocumentKeyDown);
   document.body.classList.remove('modal-open');
-
-  imgUploadInput.removeEventListener('change', handleFileUpload);
+  document.removeEventListener('keydown', onDocumentKeyDown);
   imgEditorCancelButton.removeEventListener('click', closeImgEditor);
-  inputHashtags.removeEventListener('change', onHashtagInput);
+  inputHashtags.removeEventListener('input', onHashtagInput);
   imgUploadForm.removeEventListener('submit', onFormSubmit);
 
   resetEditor();
-
   pristine.reset();
   imgUploadForm.reset();
-
-  imgUploadForm.value = '';
 }
 
 const renderImgEditor = () => {
@@ -119,4 +112,3 @@ const renderImgEditor = () => {
 };
 
 export { renderImgEditor };
-
