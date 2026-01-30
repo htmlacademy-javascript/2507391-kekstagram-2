@@ -113,7 +113,7 @@ const initSlider = () => {
     const value = effectLevelSlider.noUiSlider.get();
     const effect = EFFECTS[currentEffect];
 
-    effectLevelValue.value = value;
+    effectLevelValue.value = Number(value);
 
     if (currentEffect === 'none') {
       imagePreview.style.filter = '';
