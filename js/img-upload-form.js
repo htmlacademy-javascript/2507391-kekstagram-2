@@ -107,8 +107,12 @@ function closeImgEditor() {
   imgUploadForm.reset();
 }
 
+const onImgUploadInputChange = () => {
+  openImgEditor();
+};
+
 const renderImgEditor = () => {
-  imgUploadInput.addEventListener('change', openImgEditor);
+  imgUploadInput.addEventListener('change', onImgUploadInputChange);
 };
 
 export { renderImgEditor };

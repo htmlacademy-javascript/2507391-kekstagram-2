@@ -50,12 +50,16 @@ const renderNextComments = () => {
   currentCount = renderedCommentsLength;
 };
 
+const onCommentsLoaderClick = () => {
+  renderNextComments();
+};
+
 const clearComments = () => {
   currentCount = 0;
   socialCommentsNode.innerHTML = '';
   commentCountNode.classList.add('hidden');
   commentsLoaderNode.classList.add('hidden');
-  commentsLoaderNode.removeEventListener('click', renderNextComments);
+  commentsLoaderNode.removeEventListener('click', onCommentsLoaderClick);
 };
 
 const renderComments = (currentPhotoComments) => {
@@ -64,7 +68,7 @@ const renderComments = (currentPhotoComments) => {
 
   if (comments.length > 0) {
     renderNextComments();
-    commentsLoaderNode.addEventListener('click', renderNextComments);
+    commentsLoaderNode.addEventListener('click', onCommentsLoaderClick);
   }
 };
 
