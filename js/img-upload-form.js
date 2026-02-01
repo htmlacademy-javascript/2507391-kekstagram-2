@@ -1,5 +1,5 @@
 import { isEscapeKey, KeyMessages } from './util.js';
-import { isHashtagValid, error } from './is-hashtag-valid.js';
+import { isHashtagValid, getErrorMessage } from './is-hashtag-valid.js';
 import { resetEditor } from './image-editor.js';
 import { sendData } from './api.js';
 import { showNotification } from './notification.js';
@@ -76,7 +76,7 @@ const onFormSubmit = (evt) => {
   }
 };
 
-pristine.addValidator(inputHashtags, isHashtagValid, error, 2, false);
+pristine.addValidator(inputHashtags, isHashtagValid, getErrorMessage, 2, false);
 
 pristine.addValidator(inputDescription, (value) => {
   const hasNumber = value.length <= 140;
@@ -87,7 +87,7 @@ function openImgEditor() {
   imgEditor.classList.remove('hidden');
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeyDown);
-  imgEditorCancelButton.addEventListener('click', closeImgEditor);
+  imgEditorCancelButton.addEventListener('click', onCloseImgEditor);
   inputHashtags.addEventListener('input', onHashtagInput);
   imgUploadForm.addEventListener('submit', onFormSubmit);
 
@@ -98,13 +98,17 @@ function closeImgEditor() {
   imgEditor.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeyDown);
-  imgEditorCancelButton.removeEventListener('click', closeImgEditor);
+  imgEditorCancelButton.removeEventListener('click', onCloseImgEditor);
   inputHashtags.removeEventListener('input', onHashtagInput);
   imgUploadForm.removeEventListener('submit', onFormSubmit);
 
   resetEditor();
   pristine.reset();
   imgUploadForm.reset();
+}
+
+function onCloseImgEditor() {
+  return closeImgEditor();
 }
 
 const onImgUploadInputChange = () => {

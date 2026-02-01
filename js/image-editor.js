@@ -1,6 +1,4 @@
 
-
-let currentScale = 100;
 const SCALE_STEP = 25;
 const SCALE_MIN = 25;
 const SCALE_MAX = 100;
@@ -50,6 +48,8 @@ const EFFECTS = {
     unit: ''
   }
 };
+
+let currentScale = 100;
 
 const scaleControlSmaller = document.querySelector('.scale__control--smaller');
 const scaleControlBigger = document.querySelector('.scale__control--bigger');
