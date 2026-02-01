@@ -61,11 +61,11 @@ const onFilterChange = (evt) => {
   applyFilter();
 };
 
-const configFilter = (picturesData) => {
+const configureFilter = (picturesData) => {
   filterContainer.classList.remove('img-filters--inactive');
   pictures = picturesData;
 
   filterContainer.addEventListener('click', onFilterChange);
 };
 
-export { configFilter };
+export { configureFilter };
